@@ -2,14 +2,17 @@
 
 # dependencies
 /web/node_modules
+/server/node_modules
 /.pnp
 .pnp.js
 
 # testing
 web/coverage
+server/coverage
 
 # production
 web/build
+server/build
 
 # misc
 .DS_Store
@@ -21,3 +24,7 @@ web/build
 web/npm-debug.log*
 web/yarn-debug.log*
 web/yarn-error.log*
+
+server/npm-debug.log*
+server/yarn-debug.log*
+server/yarn-error.log*
