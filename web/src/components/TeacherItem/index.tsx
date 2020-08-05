@@ -1,37 +1,54 @@
 import React from 'react';
 
-import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
+import whatsAppIcon from '../../assets/images/icons/whatsapp.svg'
 
-import './styles.css';
+import './styles.css'
+import api from '../../services/api';
 
-function TeacherItem() {
+export interface Teacher {
+  id: number;
+  avatar: string;
+  bio: string;
+  cost: number;
+  name: string;
+  subject: string;
+  whatsapp: string;
+}
+
+interface TeacherItemProps {
+  teacher: Teacher
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+
+  function createConnection() {
+    api.post('connections', {
+      user_id: teacher.id
+    })
+  }
+
   return (
     <article className="teacher-item">
       <header>
-        <img src="https://avatars0.githubusercontent.com/u/8084944?s=460&u=e24c6e38292e0e4fe7f2cffddfff7e7c4b6beefc&v=4" alt="Nathalia" />
+        <img src={teacher.avatar} alt={teacher.name}/>
         <div>
-          <strong>TataFly</strong>
-          <span>Química</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
-      <p>
-        Entusiasta das melhores tecnologias de química avançada.
-        <br /><br />
-        Apaixonado por explodir coisas em laboratório e por mudar a vidas as pessoas através de experiências. Mais de 200.000 pessoas já passaram por uma das minhas explosões.
-      </p>
-
+      <p>{teacher.bio}</p>
       <footer>
         <p>
           Preço/hora
-          <strong>R$ 80,00</strong>
+          <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
-          <img src={whatsappIcon} alt="Whatsapp"/>
+        <a onClick={createConnection} href={`https://wa.me/${teacher.whatsapp}`} target="blank">
+          <img src={whatsAppIcon} alt="Whatsapp"/>
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
-  );
+  )
 }
 
 export default TeacherItem;
